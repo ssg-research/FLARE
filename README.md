@@ -11,6 +11,19 @@ git clone https://github.com/openai/baselines.git
 cd baselines
 pip3 install -e .
 ```
+
+## Fingerprinting Generation and Verification
+
+FLARE works in two steps:
+1. Generate fingerprint
+2. Verify a suspect model
+
+To generate fingerprints:
+```
+python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --generate-fingerprint --eps 0.05 --cuda 
+```
+This generates fingerprint using the ```model_original.pt``` model stored in `output/$GAME/$VICTIM_AGENT_MODE/fingerprint`.
+
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
 
