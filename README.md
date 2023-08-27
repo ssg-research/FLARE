@@ -11,5 +11,8 @@ git clone https://github.com/openai/baselines.git
 cd baselines
 pip3 install -e .
 ```
+## Licence
+This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
+
 ## Acknowledgements
 We built our environments with [OpenAI's Atari Gym](https://github.com/gsurma/atari). We also want to thank other researchers out there for making their repository publicly available. Our DQN implemention is inspired from [here](https://github.com/williamd4112/RL-Adventure), Our A2C and PPO implementations are based on [here](https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail). Our UAP implementation is based on [this](https://github.com/ferjad/Universal_Adversarial_Perturbation_pytorch) repository. 
