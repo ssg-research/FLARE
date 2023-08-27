@@ -1,3 +1,7 @@
+############################################################################
+# Modified from https://github.com/LTS4/DeepFool/tree/master/Python        #
+############################################################################
+
 import numpy as np
 from torch.autograd import Variable
 import torch as torch
