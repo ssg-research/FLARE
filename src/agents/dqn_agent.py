@@ -1,3 +1,6 @@
+############################################################################
+# Modified from https://github.com/williamd4112/RL-Adventure               #
+############################################################################
 import copy
 import torch
 import random
