@@ -1,3 +1,7 @@
+############################################################################
+# Modified from https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail   #
+############################################################################
+
 import torch
 from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
 
