@@ -16,7 +16,7 @@ pip3 install -e .
 
 FLARE works in two steps:
 1. Generate fingerprint
-2. Verify a suspect model
+2. Verify a suspected model
 
 To generate fingerprints:
 ```
