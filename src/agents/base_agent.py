@@ -1,7 +1,10 @@
+############################################################################
+# Modified from https://github.com/williamd4112/RL-Adventure               #
+############################################################################
+
 import os
 import glob
 import re
-
 
 class base_agent:
 
