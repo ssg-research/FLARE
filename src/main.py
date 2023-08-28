@@ -20,10 +20,11 @@ from train import train, modify, adversarial_train
 def get_args():
     parse = argparse.ArgumentParser()
     available_games = list((''.join(x.capitalize() or '_' for x in word.split('_')) for word in atari_py.list_games()))
-    parse.add_argument('--env-name', default='Breakout', help='Choose from available games: ' + str(available_games) + ". Default is 'breakout'.")
+    parse.add_argument('--env-name', default='Pong', help='Choose from available games: ' + str(available_games) + ". Default is 'breakout'.")
     parse.add_argument('--env-type', type=str, default='atari', help='the environment type')
     parse.add_argument('--game-mode', type=str, default='train', help="Choose from available modes: train, test, fingerprint, finetune, fineprune, advtrain, imitate. Default is 'train'.")
     parse.add_argument('--victim-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
+    parse.add_argument("--victim-agent-path", type=str, default="", help="the model path fort the victim agent.")
     parse.add_argument('--seed', type=int, default=123, help='the random seeds')
     parse.add_argument('--num-processes',type=int, default=16, help='how many training CPU processes to use (default: 16)')
     parse.add_argument('--cuda', action='store_true',  help='if use the gpu')

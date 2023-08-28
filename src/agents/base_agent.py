@@ -16,7 +16,7 @@ class base_agent:
         self.args = args 
         self.device = device
         model_name = agent_mode
-        
+
         if args.game_mode == "train":
             self.model_path = "./output/" + args.env_name + "/" + model_name + "/" + args.game_mode + "/"
             if not os.path.isdir(self.model_path):

@@ -127,6 +127,8 @@ def construct_agent(model_type, env, device, args):
         agent = ppo_agent(model_name, agent_mode, env, device, args)
 
     if model_type == 'victim':
+        if args.victim_agent_path != "":
+            agent.model_path = args.victim_agent_path
         print(f"Load model from: {agent.model_path}")
         checkpoint = torch.load(agent.model_path, map_location=lambda storage, loc: storage)
     else:
