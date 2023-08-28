@@ -61,7 +61,16 @@ You can check main.py to further modify the hyperparamaters, (e.g., number of tr
 `
   > --suspected-agent-mode: the type of suspected agent's policy, a2c, dqn or ppo, default is dqn. \
   > --suspected-agent-path: the path to suspected agent. This should be an existing path to a suspected agent to succesfully tun the verification algorithm. You should also make sure that the suspected agent policy is correct while loading it. \
-  > --ver-slength: the window size (i.e., the total number of states) used in the verification, default is set to 40.  
+  > --ver-slength: the window size (i.e., the total number of states) used in the verification, default is set to 40.
+
+## Model Modification and Evasion Attacks
+
+In this repository, we provide fine-tuning and pruning as model modification attacks. We also provide random action return, adversarial example detection and recovery with [visual foresight](https://arxiv.org/abs/1710.00814) (VF1), and visual foresight with a suboptimal action (VF2) as evasion strategies. For fine-tuning and pruning, you need to change --game-mode to finetune and prune, respectively. You also need to generate finetune or fineprune folder under `output/$GAME/$VICTIM_AGENT_MODE/finetune` (or  `output/$GAME/$VICTIM_AGENT_MODE/fineprune`), and move the victi model `model_original.pt` to these folders in order to load the correct model. For VF1 and VF2, you need to train visual foresight modules, and then use one of these options during fingerprint verification: 
+  > --random-action-ratio $RATIO: random action return with a ratio $RATIO, default is set to 0.0, maximum is 1.0. \
+  > --vf1: If set, visual foresight with correct action recovery setup is initiated. \
+  > --vf2 --random-action-ratio $RATIO: If set, visual foresight with suboptimal actions is initiated with a given random action ratio.
+
+For running different attack strategies (as well as fingerprint generation and verification), please check the bash script `src/complete_experiments.sh`.  
 
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
