@@ -40,10 +40,17 @@ FLARE works in two steps:
 2. Verify a suspected model
 
 To generate fingerprints:
-```
-python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --generate-fingerprint --eps 0.05 --cuda 
-```
-This generates fingerprint using the ```model_original.pt``` model stored in `output/$GAME/$VICTIM_AGENT_MODE/fingerprint`.
+`
+python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --generate-fingerprint --eps 0.05 --generate-num-masks 10 -cuda 
+`
+  > --adversary: the type of adversarial example generation method, none, random (random gaussion noise), cosfwu (conferrable universal adversarial masks), oswf (universal adversarial masks by [Pan et al](https://arxiv.org/abs/1907.09470)), uap (universal adversarial perturbations by [Moosavi-Dezfooli et al.](https://arxiv.org/abs/1610.08401)). This method is used to generate fingerprints for the victim model ```model_original.pt``` stored in `output/$GAME/$VICTIM_AGENT_MODE/fingerprint`.\
+  > --generate-fingerprint: this flag should be set only during fingerprint generation phase. \
+  > --eps: the maximum amount of l_infinity norm on the adversarial mask, default is 0.05. \
+  > --generate-num-masks: the number of fingerprints to be generated, default is 10. \
+  > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is  0.5. \ 
+  > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error.
+
+You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare).
 
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
