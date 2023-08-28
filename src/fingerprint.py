@@ -159,27 +159,16 @@ def generate_fingerprints(args):
                 print('Return: {}'.format(score))
                 break
 
-        #result_perc_copy = np.sum(np.asarray(action_data_masked) == np.asarray(dup_action_data_masked))/len(action_data_masked)
-        #print("Action agreement (aa) on victim vs copy of a victim: {:.3f}".format(result_perc_copy))
-
-        #result_perc_adv_effect = np.sum(np.asarray(action_data_masked) == np.asarray(dup_action_data_clean))/len(action_data_masked)
-        #print("Effectiveness of adversarial mask on victim: {:.3f}".format(1.0 -result_perc_adv_effect))
-
         result_perc_copy = 1.0 - np.sum(np.asarray(action_data_masked) == np.asarray(action_data_clean))/len(action_data_masked)
         print("Effectiveness of adversarial mask on victim: {:.3f}".format(result_perc_copy))
 
         for idx in range(len(ind_action_data_masked)):
-            #result_perc = np.sum(np.asarray(action_data_masked) == np.asarray(ind_action_data_masked[idx]))/len(action_data_masked)
-            #print("Action agreement (aa) on victim vs independent model (On all actions) {}: {:.3f}".format(idx+1, result_perc))     
-            #result_perc_independent.append(result_perc)  
-
             indices = np.where(np.asarray(ind_action_data_clean[idx]) == np.asarray(action_data_clean))[0]
             result_perc = np.sum(np.asarray(ind_action_data_masked[idx])[indices] == np.asarray(action_data_masked)[indices])/len(indices)
             print("Action agreement (aa) on victim vs independent model (On same original action) {}: {:.3f}".format(idx+1, result_perc))   
             result_perc_independent.append(result_perc)    
 
         if any(torch.equal(tensor, adv.advmask) for tensor in fingerprint_list) == False:
-            #if result_perc_copy >= adv_min_fooling_rate and all([(1.0-args.nts) < i for i in result_perc_independent]):
             if result_perc_copy >= adv_min_fooling_rate and all([(1.0-i)*result_perc_copy > args.nts for i in result_perc_independent]):
                 print("Fingerprint {} computed in trial {}, with a fooling rate of {:.3f}".format(num_masks_saved+1, trial+1, adv.fooling_rate))
                 print(f"Save fingerprint to {noise_path_template.format(num_masks_saved)}.")

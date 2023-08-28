@@ -100,7 +100,7 @@ def get_args():
     parse.add_argument("--num-samples", type=int, default=10, help="Number of times to sample actions from one run.")
     parse.add_argument("--decision-threshold", type=float, default=float(0.5))
     parse.add_argument("--sampling-strategy", type=str, default="random")
-    parse.add_argument("--ver-slength", type=int, default=100, help="number of states used for verification")
+    parse.add_argument("--ver-slength", type=int, default=40, help="number of states used for verification")
 
     # Adaptive attacker strategies
     parse.add_argument("--finetune-timesteps", type=int, default=1e8)
