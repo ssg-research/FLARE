@@ -13,6 +13,7 @@ cd baselines
 pip3 install -e .
 ```
 ## Training and Testing Your Own Policies
+Victim models used for our experimental setup are given under **src/output/** directory. However, you can also train your own models and evaluate their performance by measuring the average return over test episodes. 
 Training your own agent is simple:
 
 `
@@ -26,7 +27,7 @@ python main.py --game-mode train --env-name $GAME --victim-agent-mode $VICTIM_AG
 
 This will generate the trained policy in folder ./output/$GAME$/$VICTIM_AGENT_MODE/train/model_original.pt. You can check main.py to further modify the training hyperparamaters, e.g., learning rate, total time steps, entropy term coefficient in a2c and ppo, etc.
 
-To evalute your policy's performance:
+To evalute your agents' performance:
 
 `
 python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --victim-agent-path ./the/folder/for/policy.pt --cuda
@@ -39,7 +40,8 @@ FLARE works in two steps:
 1. Generate fingerprint
 2. Verify a suspected model
 
-### Fngerprint Generation:
+### Fingerprint Generation:
+
 `
 python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --generate-fingerprint --eps 0.05 --generate-num-masks 10 -cuda 
 `
@@ -52,7 +54,7 @@ python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY -
 
 You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare). Please remember, for any victim model, you need to train 5 more independent models to generate the fingerprint list. We do not provide independent models used in the paper, but you can download fingerprints computed in our experimntal setup from here if you want to reproduce the verification results for modified policies. 
 
-### Fngerprint Verification:
+### Fingerprint Verification:
 
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
