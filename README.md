@@ -12,7 +12,10 @@ git clone https://github.com/openai/baselines.git
 cd baselines
 pip3 install -e .
 ```
-
+## Training and Testing Policies
+```
+python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --victim-agent-path ./the/ofolder/for/policy.pt
+```
 ## Fingerprinting Generation and Verification
 
 FLARE works in two steps:
