@@ -13,15 +13,24 @@ cd baselines
 pip3 install -e .
 ```
 ## Training and Testing Your Own Policies
-To evalute your policy's performance:
+Training your own agent is simple:
 
 `
-python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --victim-agent-path ./the/folder/for/policy.pt
+python main.py --game-mode train --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --cuda
 `
   > --game-mode: train, test or fingerprint, default is train. \
   > --victim-agent-mode: the type of policy, a2c, dqn or ppo, default is dqn. \
   > --env-name: name of the game, Pong or MsPacman or any other available ALE game, default is Pong. \
-  > --sed: the number to generate the random starting state in gameplays (or episodes), default is 123. \
+  > --seed: the number to generate the random starting state in gameplays (or episodes), default is 123. \
+  > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error. 
+
+This will generate the trained policy in folder ./output/$GAME$/$VICTIM_AGENT_MODE/train/model_original.pt. You can check main.py to further modify the training hyperparamaters, e.g., learning rate, total time steps, entropy term coefficient in a2c and ppo, etc.
+
+To evalute your policy's performance:
+
+`
+python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --victim-agent-path ./the/folder/for/policy.pt --cuda
+`
   > --victim-agent-path: the path to victim agent, if none is given, the default path is ./output/$GAME$/$VICTIM_AGENT_MODE/test/model_original.pt 
  
 ## Fingerprinting Generation and Verification
