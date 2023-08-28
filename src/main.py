@@ -82,19 +82,19 @@ def get_args():
     parse.add_argument('--use-linear-lr-decay', type=bool, default=False, help='Use linear lr decay in PPO (default: False)')
 
     # Fingerprint generation arguments
-    parse.add_argument('--adversary', default='osfwu', help="Choose from available modes: none, random, uap, osfwu, cosfwu, Default is 'none'.")
+    parse.add_argument('--adversary', default='none', help="Choose from available modes: none, random, uap, osfwu, cosfwu, Default is 'none'.")
     parse.add_argument('--attacker-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
     parse.add_argument('--attacker-game-plays', type=int, default=int(1), help='the total number of independent game plays in training time for attack')
     parse.add_argument('--eps', type=float, default=0.05, help="Epsilon bound for generating adversarial examples")
-    parse.add_argument('--training-frames', type=int, default=60, help="Number of frames used to train obs_fgsm_wb. Set value to -1 to use all training frames.")
-    parse.add_argument('--training-frames-type', default='none', help="For obs-fgsm-wb, take largest/smallest q variance frames. Available modes: L, S, none. Default is 'none'.")
+    parse.add_argument('--training-frames', type=int, default=60, help="Number of frames used to train cosfwu/osfwu. Set value to -1 to use all training frames.")
+    parse.add_argument('--training-frames-type', default='none', help="For cosfwu/osfwu, take largest/smallest q variance frames. Available modes: L, S, none. Default is 'none'.")
     parse.add_argument("--generate-fingerprint", action="store_true", help="To generate fingerprint based on a source policy.")
     parse.add_argument("--plot-fingerprint", action="store_true", help="To generate fingerprint based on a source policy.")
     parse.add_argument("--generate-num_masks", type=int, default=10, help="Number of masks to generate.")
     parse.add_argument("--nts", type=float, default=float(0.5)) #0.9 for oswf, 0.5 for window size=100
 
     # Fingerprint verification arguments
-    parse.add_argument("--suspected-agent-path", type=str, default="", help="the model path fort he suspected agent.")
+    parse.add_argument("--suspected-agent-path", type=str, default="", help="the model path for the suspected agent.")
     parse.add_argument('--suspected-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
     parse.add_argument("--num-action-sample", type=int, default=100, help="Number of actions sampled to test for fingerprint.")
     parse.add_argument("--num-samples", type=int, default=10, help="Number of times to sample actions from one run.")
