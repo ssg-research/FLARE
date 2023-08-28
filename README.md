@@ -56,7 +56,7 @@ You can check main.py to further modify the hyperparamaters, (e.g., number of tr
 
 ### Fingerprint Verification:
 `
-  python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --eps 0.05 --suspected-agent-mode $SUSPECTED_AGENT_MODE \
+  python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --eps 0.05 --suspected-agent-mode $SUSPECTED_AGENT_MODE
                     --suspected-agent-path ./the/folder/for/suspected/policy.pt --ver-slength 40 --cuda
 `
   > --suspected-agent-mode: the type of suspected agent's policy, a2c, dqn or ppo, default is dqn. \
