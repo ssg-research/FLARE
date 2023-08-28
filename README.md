@@ -25,7 +25,7 @@ python main.py --game-mode train --env-name $GAME --victim-agent-mode $VICTIM_AG
   > --seed: the number to generate the random starting state in gameplays (or episodes), default is 123. \
   > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error. 
 
-This will generate the trained policy in folder ./output/$GAME$/$VICTIM_AGENT_MODE/train/model_original.pt. You can check main.py to further modify the training hyperparamaters, e.g., learning rate, total time steps, entropy term coefficient in a2c and ppo, etc.
+This will generate the trained policy in folder ./output/$GAME$/$VICTIM_AGENT_MODE/train/model_original.pt. You can check main.py to further modify the training hyperparamaters, e.g., learning rate, total time steps, entropy term coefficient in a2c and ppo, etc. Beware that training your own model might take some from, ranging from couple of hours to a day. 
 
 To evalute your agents' performance:
 
