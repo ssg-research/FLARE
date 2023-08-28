@@ -26,7 +26,7 @@ import agents.action_conditional_video_prediction as acvp
 from agents.dqn_agent import dqn_agent
 from agents.a2c_agent import a2c_agent
 from agents.ppo_agent import ppo_agent
-from agents.models import DQNnet, A2Cnet_imit
+from agents.models import DQNnet
 from agents.storage import RolloutStorage
 from rl_utils.atari_wrapper import make_vec_envs
 from rl_utils.utils import set_seeds, EpsilonScheduler

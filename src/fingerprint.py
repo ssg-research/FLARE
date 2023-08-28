@@ -15,7 +15,7 @@ import logging
 import os, glob
 import numpy as np
 
-from agents.models import DQNnet, A2Cnet_imit
+from agents.models import DQNnet
 from rl_utils.utils import set_seeds
 from rl_utils.atari_wrapper import make_vec_envs
 from attack_utils.attacker_agent import attacker_agent
@@ -72,8 +72,8 @@ def generate_fingerprints(args):
     # collect data over one game to generate adv mask
     print("-------------------")
     print("Collect training data for fingerprinting...")
-    rhs = torch.zeros(1, 1)
-    masks = torch.zeros(1, 1)
+    rhs = torch.zeros(1, 1).to(device)
+    masks = torch.zeros(1, 1).to(device)
     frame_idx_ingame = 0
     state = env.reset()
 
