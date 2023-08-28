@@ -12,10 +12,18 @@ git clone https://github.com/openai/baselines.git
 cd baselines
 pip3 install -e .
 ```
-## Training and Testing Policies
-```
-python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --victim-agent-path ./the/folder/for/policy.pt
-```
+## Training and Testing Your Own Policies
+To evalute your policy's performance:
+
+`
+python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --victim-agent-path ./the/folder/for/policy.pt
+`
+  > --game-mode: train, test or fingerprint, default is train. \
+  > --victim-agent-mode: the type of policy, a2c, dqn or ppo, default is dqn. \
+  > --env-name: name of the game, Pong or MsPacman or any other available ALE game, default is Pong. \
+  > --sed: the number to generate the random starting state in gameplays (or episodes), default is 123. \
+  > --victim-agent-path: the path to victim agent, if none is given, the default path is ./output/$GAME$/$VICTIM_AGENT_MODE/test/model_original.pt 
+ 
 ## Fingerprinting Generation and Verification
 
 FLARE works in two steps:
