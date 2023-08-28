@@ -49,7 +49,7 @@ python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY -
   > --generate-fingerprint: this flag should be set only during fingerprint generation phase. \
   > --eps: the maximum amount of l_infinity norm on the adversarial mask, default is 0.05. \
   > --generate-num-masks: the number of fingerprints to be generated, default is 10. \
-  > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is  0.5. \ 
+  > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is  0.5.\
   > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error.
 
 You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare). Please remember, for any victim model, you need to train 5 more independent models to generate the fingerprint list. We do not provide independent models used in the paper, but you can download fingerprints computed in our experimntal setup from here if you want to reproduce the verification results for modified policies. 
