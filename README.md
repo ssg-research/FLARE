@@ -39,7 +39,7 @@ FLARE works in two steps:
 1. Generate fingerprint
 2. Verify a suspected model
 
-To generate fingerprints:
+### Fngerprint Generation:
 `
 python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --generate-fingerprint --eps 0.05 --generate-num-masks 10 -cuda 
 `
@@ -50,7 +50,9 @@ python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY -
   > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is  0.5. \ 
   > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error.
 
-You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare).
+You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare). Please remember, for any victim model, you need to train 5 more independent models to generate the fingerprint list. We do not provide independent models used in the paper, but you can download fingerprints computed in our experimntal setup from here if you want to reproduce the verification results for modified policies. 
+
+### Fngerprint Verification:
 
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
