@@ -20,9 +20,9 @@ Training your own agent is simple:
 python main.py --game-mode train --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --cuda
 `
   > --game-mode: train, test or fingerprint, default is train. \
-  > --victim-agent-mode: the type of policy, a2c, dqn or ppo, default is dqn. \
+  > --victim-agent-mode: the type of policy, a2c, dqn or ppo, default is set to dqn. \
   > --env-name: name of the game, Pong or MsPacman or any other available ALE game, default is Pong. \
-  > --seed: the number to generate the random starting state in gameplays (or episodes), default is 123. \
+  > --seed: the number to generate the random starting state in gameplays (or episodes), default is set to 123. \
   > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error. 
 
 This will generate the trained policy in folder ./output/$GAME$/$VICTIM_AGENT_MODE/train/model_original.pt. You can check main.py to further modify the training hyperparamaters, e.g., learning rate, total time steps, entropy term coefficient in a2c and ppo, etc. Beware that training your own model might take some from, ranging from couple of hours to a day. 
@@ -32,7 +32,7 @@ To evalute your agents' performance:
 `
 python main.py --game-mode test --env-name $GAME --victim-agent-mode $VICTIM_AGENT_MODE --seed $SEED --victim-agent-path ./the/folder/for/policy.pt --cuda
 `
-  > --victim-agent-path: the path to victim agent, if none is given, the default path is ./output/$GAME$/$VICTIM_AGENT_MODE/test/model_original.pt 
+  > --victim-agent-path: the path to victim agent, if none is given, the default path is `./output/$GAME$/$VICTIM_AGENT_MODE/test/model_original.pt` 
  
 ## Fingerprinting Generation and Verification
 
@@ -47,14 +47,21 @@ python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY -
 `
   > --adversary: the type of adversarial example generation method, none, random (random gaussion noise), cosfwu (conferrable universal adversarial masks), oswf (universal adversarial masks by [Pan et al](https://arxiv.org/abs/1907.09470)), uap (universal adversarial perturbations by [Moosavi-Dezfooli et al.](https://arxiv.org/abs/1610.08401)). This method is used to generate fingerprints for the victim model ```model_original.pt``` stored in `output/$GAME/$VICTIM_AGENT_MODE/fingerprint`.\
   > --generate-fingerprint: this flag should be set only during fingerprint generation phase. \
-  > --eps: the maximum amount of l_infinity norm on the adversarial mask, default is 0.05. \
-  > --generate-num-masks: the number of fingerprints to be generated, default is 10. \
-  > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is  0.5.\
+  > --eps: the maximum amount of l_infinity norm on the adversarial mask, default is set to 0.05. \
+  > --generate-num-masks: the number of fingerprints to be generated, default is set to 10. \
+  > --nts: the minimum non-transferability score for an adversarial mask to be included in the fingerprint list, default is set to 0.5.\
   > --cuda: If set, the training will happen using GPU, otherwise in CPU. If there is no cuda available, --cuda option will return error.
 
 You can check main.py to further modify the hyperparamaters, (e.g., number of training frames used in the cofwu/osfwu algorithm, number of episodes to collect D_flare). Please remember, for any victim model, you need to train 5 more independent models to generate the fingerprint list. We do not provide independent models used in the paper, but you can download fingerprints computed in our experimntal setup from here if you want to reproduce the verification results for modified policies. 
 
 ### Fingerprint Verification:
+`
+  python main.py --game-mode fingerprint --env-name $GAME --adversary $ADVERSARY --victim-agent-mode $VICTIM_AGENT_MODE --eps 0.05 --suspected-agent-mode $SUSPECTED_AGENT_MODE \
+                    --suspected-agent-path ./the/folder/for/suspected/policy.pt --ver-slength 40 --cuda
+`
+  > --suspected-agent-mode: the type of suspected agent's policy, a2c, dqn or ppo, default is dqn. \
+  > --suspected-agent-path: the path to suspected agent. This should be an existing path to a suspected agent to succesfully tun the verification algorithm. You should also make sure that the suspected agent policy is correct while loading it. \
+  > --ver-slength: the window size (i.e., the total number of states) used in the verification, default is set to 40.  
 
 ## Licence
 This project is licensed under Apache License Version 2.0. By using, reproducing or distributing to the project, you agree to the license and copyright terms therein and release your version under these terms.
