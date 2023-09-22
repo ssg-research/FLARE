@@ -179,35 +179,6 @@ class A2Cnet(nn.Module):
         x = self.main(x / 255.0)
         return x
 
-class A2Cnet_imit(nn.Module):
-    def __init__(self, num_actions, recurrent=False, hidden_size=512):
-        super(A2Cnet, self).__init__()
-
-        init_ = lambda m: init(m, nn.init.orthogonal_, lambda x: nn.init.
-                               constant_(x, 0), nn.init.calculate_gain('relu'))
-
-        self.num_outputs = num_actions
-        self._hidden_size = hidden_size
-
-        self.main = nn.Sequential(
-            init_(nn.Conv2d(4, 32, 8, stride=4)), nn.ReLU(),
-            init_(nn.Conv2d(32, 64, 4, stride=2)), nn.ReLU(),
-            init_(nn.Conv2d(64, 32, 3, stride=1)), nn.ReLU(), Flatten(),
-            init_(nn.Linear(32 * 7 * 7, hidden_size)), nn.ReLU())
-
-        init_ = lambda m: init(m, nn.init.orthogonal_, lambda x: nn.init.
-                               constant_(x, 0))
-
-        self.linear = init_(nn.Linear(hidden_size, num_actions))
-    
-    @property
-    def output_size(self):
-        return self._hidden_size
-
-    def forward(self, inputs):
-        x = self.main(inputs / 255.0)
-        return self.linear(x)
-
 class LinearRegressionModel(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(LinearRegressionModel, self).__init__() 

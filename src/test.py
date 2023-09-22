@@ -1,5 +1,3 @@
-# Authors: Buse G. A. Tekgul
-# Copyright 2020 Secure Systems Group, Aalto University, https://ssg.aalto.fi
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -21,7 +19,7 @@ from agents.dqn_agent import dqn_agent
 from agents.a2c_agent import a2c_agent
 from agents.ppo_agent import ppo_agent
 
-from agents.models import DQNnet, A2Cnet_imit
+from agents.models import DQNnet
 from rl_utils.utils import set_seeds
 from rl_utils.atari_wrapper import make_vec_envs
 import agents.action_conditional_video_prediction as acvp
@@ -127,6 +125,8 @@ def construct_agent(model_type, env, device, args):
         agent = ppo_agent(model_name, agent_mode, env, device, args)
 
     if model_type == 'victim':
+        if args.victim_agent_path != "":
+            agent.model_path = args.victim_agent_path
         print(f"Load model from: {agent.model_path}")
         checkpoint = torch.load(agent.model_path, map_location=lambda storage, loc: storage)
     else:

@@ -1,5 +1,3 @@
-# Authors: Buse G. A. Tekgul
-# Copyright 2020 Secure Systems Group, Aalto University, https://ssg.aalto.fi
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -26,7 +24,7 @@ import agents.action_conditional_video_prediction as acvp
 from agents.dqn_agent import dqn_agent
 from agents.a2c_agent import a2c_agent
 from agents.ppo_agent import ppo_agent
-from agents.models import DQNnet, A2Cnet_imit
+from agents.models import DQNnet
 from agents.storage import RolloutStorage
 from rl_utils.atari_wrapper import make_vec_envs
 from rl_utils.utils import set_seeds, EpsilonScheduler
@@ -112,7 +110,7 @@ def modify(args):
             dqn_finetune(agent, env, device, args)
         elif args.game_mode == "fineprune":
             logger.info("Pruning+Finetuning is used as model modification")
-            for level in [0.01, 0.05, 0.1, 0.25, 0.4, 0.5, 0.75, 0.9]:
+            for level in [0.25, 0.5, 0.75, 0.9]:
                 env = make_vec_envs(args.env_name, args.seed+20, 1, args.gamma, 'output/env_logs', device, allow_early_resets=args.allow_early_resets)
                 agent = construct_agent(model_type="victim", env=env, device=device, args=args)
                 dqn_finetune(agent, env, device, args, pruning=True, plevel = level)
@@ -124,7 +122,7 @@ def modify(args):
             policy_finetune(agent, env, device, args)
         elif args.game_mode == "fineprune":
             logger.info("Pruning+Finetuning is used as model modification")
-            for level in [0.01, 0.05, 0.1, 0.25, 0.4, 0.5, 0.75, 0.9]:
+            for level in [0.25, 0.5, 0.75, 0.9]:
                 env = make_vec_envs(args.env_name, args.seed+20, args.num_processes, args.gamma, 'output/env_logs', device, False)
                 set_seeds(args, 20)
                 agent = construct_agent(model_type="victim", env=env, device=device, args=args)

@@ -1,5 +1,3 @@
-# Authors: Buse G. A. Tekgul
-# Copyright 2020 Secure Systems Group, Aalto University, https://ssg.aalto.fi
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -20,10 +18,11 @@ from train import train, modify, adversarial_train
 def get_args():
     parse = argparse.ArgumentParser()
     available_games = list((''.join(x.capitalize() or '_' for x in word.split('_')) for word in atari_py.list_games()))
-    parse.add_argument('--env-name', default='Breakout', help='Choose from available games: ' + str(available_games) + ". Default is 'breakout'.")
+    parse.add_argument('--env-name', default='Pong', help='Choose from available games: ' + str(available_games) + ". Default is 'breakout'.")
     parse.add_argument('--env-type', type=str, default='atari', help='the environment type')
     parse.add_argument('--game-mode', type=str, default='train', help="Choose from available modes: train, test, fingerprint, finetune, fineprune, advtrain, imitate. Default is 'train'.")
     parse.add_argument('--victim-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
+    parse.add_argument("--victim-agent-path", type=str, default="", help="the model path fort the victim agent.")
     parse.add_argument('--seed', type=int, default=123, help='the random seeds')
     parse.add_argument('--num-processes',type=int, default=16, help='how many training CPU processes to use (default: 16)')
     parse.add_argument('--cuda', action='store_true',  help='if use the gpu')
@@ -81,25 +80,25 @@ def get_args():
     parse.add_argument('--use-linear-lr-decay', type=bool, default=False, help='Use linear lr decay in PPO (default: False)')
 
     # Fingerprint generation arguments
-    parse.add_argument('--adversary', default='osfwu', help="Choose from available modes: none, random, uap, osfwu, cosfwu, Default is 'none'.")
+    parse.add_argument('--adversary', default='none', help="Choose from available modes: none, random, uap, osfwu, cosfwu, Default is 'none'.")
     parse.add_argument('--attacker-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
     parse.add_argument('--attacker-game-plays', type=int, default=int(1), help='the total number of independent game plays in training time for attack')
     parse.add_argument('--eps', type=float, default=0.05, help="Epsilon bound for generating adversarial examples")
-    parse.add_argument('--training-frames', type=int, default=60, help="Number of frames used to train obs_fgsm_wb. Set value to -1 to use all training frames.")
-    parse.add_argument('--training-frames-type', default='none', help="For obs-fgsm-wb, take largest/smallest q variance frames. Available modes: L, S, none. Default is 'none'.")
+    parse.add_argument('--training-frames', type=int, default=60, help="Number of frames used to train cosfwu/osfwu. Set value to -1 to use all training frames.")
+    parse.add_argument('--training-frames-type', default='none', help="For cosfwu/osfwu, take largest/smallest q variance frames. Available modes: L, S, none. Default is 'none'.")
     parse.add_argument("--generate-fingerprint", action="store_true", help="To generate fingerprint based on a source policy.")
     parse.add_argument("--plot-fingerprint", action="store_true", help="To generate fingerprint based on a source policy.")
     parse.add_argument("--generate-num_masks", type=int, default=10, help="Number of masks to generate.")
     parse.add_argument("--nts", type=float, default=float(0.5)) #0.9 for oswf, 0.5 for window size=100
 
     # Fingerprint verification arguments
-    parse.add_argument("--suspected-agent-path", type=str, default="", help="the model path fort he suspected agent.")
+    parse.add_argument("--suspected-agent-path", type=str, default="", help="the model path for the suspected agent.")
     parse.add_argument('--suspected-agent-mode', default='dqn', help="Choose from available RL algorithms: dqn, a2c, ppo, Default is 'dqn'.")
     parse.add_argument("--num-action-sample", type=int, default=100, help="Number of actions sampled to test for fingerprint.")
     parse.add_argument("--num-samples", type=int, default=10, help="Number of times to sample actions from one run.")
     parse.add_argument("--decision-threshold", type=float, default=float(0.5))
     parse.add_argument("--sampling-strategy", type=str, default="random")
-    parse.add_argument("--ver-slength", type=int, default=100, help="number of states used for verification")
+    parse.add_argument("--ver-slength", type=int, default=40, help="number of states used for verification")
 
     # Adaptive attacker strategies
     parse.add_argument("--finetune-timesteps", type=int, default=1e8)
